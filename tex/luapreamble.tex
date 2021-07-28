@@ -1,0 +1,200 @@
+% !TeX root = thesis.tex
+
+%preamble to compile with:
+%lualatex, TeXLive 2021, biber
+
+
+\RequirePackage[l2tabu, orthodox]{nag}
+\documentclass[paper=a4,fontsize=12pt, twoside, BCOR=8mm, usegeometry, chapterprefix=true]{scrbook}
+
+% chapterprefix=true 
+% https://tex.stackexchange.com/questions/246411/koma-script-how-to-style-the-title-of-a-chapter?rq=1
+
+\setkomafont{captionlabel}{\bfseries} % make "Figure 1.2" bold
+\setcapindent{0pt} % indentation for "Figure 1.2"
+
+
+%\usepackage{syntonly} % use this for debugging
+%\syntaxonly           % use this for debugging
+%\usepackage[]{layout} % place \layout in the body to get the layout page
+
+\usepackage{datetime2} % only used for version time on title page.
+
+\nonstopmode % https://tex.stackexchange.com/questions/13323/how-to-disable-the-prompt-on-error
+\usepackage{geometry}
+\usepackage[log-declarations=false]{xparse} % do not write declarations to .log
+
+%\usepackage[a-1b]{pdfx} % For an archivable pdf file in the final version.
+\usepackage[all=!htb]{hvfloat-fps}
+
+\usepackage[ngerman,main=USenglish]{babel} % switch with \selectlanguage{english}
+\input{hyphenation} % hyphenation rules
+
+\usepackage[autostyle=true,german=quotes,english=american]{csquotes}
+
+\usepackage{scrhack} % https://tex.stackexchange.com/questions/51867/koma-warning-about-toc
+
+\usepackage{amssymb} % all symbols from the AMS symbol fonts msam and msbm
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{bm} % pretty boldmath
+\usepackage{fontspec}% for lualatex 
+
+%\usepackage{unicode-math} % hint by M.S.
+%\setmathfont{texgyrepagella-math.otf} % hint by M.S.
+
+% https://tex.stackexchange.com/questions/430594/use-minitoc-with-koma-script-scrbook
+\usepackage{etoc}
+\newcommand{\chaptertoc}[1][Contents]{%
+%	\etocsettocstyle{\addsec*{#1}}{}% NO LINE
+	\etocsettocstyle{\addsec*{#1\\\rule{\textwidth}{0.4pt}}}{}% 
+	\localtableofcontents%
+}
+
+
+\usepackage[]{url} 
+\urlstyle{same}
+%%% DO NOT USE: \usepackage{breakurl} % Package breakurl Warning: You are using breakurl while processing via pdflatex.
+
+\usepackage[cmyk]{xcolor}
+\usepackage[]{graphicx} % use export TEXINPUTS= instead \graphicspath says l2tabu
+% \usepackage[demo]{graphicx} % demo = ignore pictures
+
+% ref: http://tex.stackexchange.com/questions/83037/difference-between-ref-varioref-and-cleveref-decision-for-a-thesis
+% \vref for 'far away' references and \cref for everything else
+\usepackage{varioref} 
+
+\usepackage{siunitx}
+\sisetup{locale=US, % 
+  multi-part-units=brackets, %
+  per-mode=fraction,%
+  retain-explicit-plus, %
+  binary-units = true,%
+  separate-uncertainty = false} % 3.45(2)
+
+%repeatunits multi-part-units
+%product-units
+%range-units
+
+\usepackage[]{xspace} %    \xspace should be used at the end of a macro designed to be used mainly in text. It adds a space unless the macro is followed by certain punctuation characters.
+
+\usepackage[version=4, arrows=pgf, arrows=pgf-filled]{mhchem}
+
+\usepackage[]{miller} % \hkl(2 -0.28 1)
+\renewcommand\millerskip{\;} % more space between hkl
+
+% Tables =====================
+
+\usepackage[]{booktabs}
+\setlength{\heavyrulewidth}{1.5pt}
+\setlength{\abovetopsep}{4pt}
+\usepackage[]{longtable}
+
+
+\usepackage[]{pdfpages}
+
+\usepackage[%
+backend=biber,%
+style=ext-numeric,
+sorting=nyt,%
+doi=true,%
+isbn=true,%
+eprint=false, %
+hyperref=true,%
+backref=true,%
+backrefstyle=all+,%
+giveninits=true,%  %firstinits=true is deprecated
+terseinits=false,% False means A. Einstein with "."
+maxnames=10, % if more authors, then print first author et al.
+url=false]{biblatex}
+
+\DeclareDelimFormat[bib,biblist]{nametitledelim}{\addcolon\space}
+
+\AtEveryBibitem{\clearfield{issn}}
+\AtEveryCitekey{\clearfield{issn}}
+\AtEveryCitekey{\clearfield{eprint}}
+\AtEveryCitekey{\clearfield{issue}}
+\AtEveryCitekey{\clearfield{month}}
+
+%https://tex.stackexchange.com/questions/483716/how-to-cite-a-diploma-thesis-with-biblatex-biber
+\NewBibliographyString{diplomathesis}
+\DefineBibliographyStrings{english}{diplomathesis = {diploma thesis}}
+
+\usepackage{enumitem} % small vertical distance in lists
+\setlist{nosep}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+%% \usepackage[]{microtype} % enable later microtype makes compilation slow
+\usepackage[english]{selnolig}
+
+%\usepackage[noindentafter]{titlesec}
+
+\usepackage[]{tikz}
+
+\usepackage[automark,headsepline,footsepline]{scrlayer-scrpage}
+
+% force placement of fullpage figures after next pagebreak 
+% https://tex.stackexchange.com/a/109347/16227
+\usepackage{afterpage} 
+\usepackage{listings}
+
+% top and bottom line of KOMA
+\pagestyle{scrheadings}
+
+%\clearscrheadfoot%
+%\setheadsepline[\textwidth]{0.7pt}{}
+%\ohead{\headmark}%
+%\chead{}%
+%\ihead{}%
+%\setfootsepline[\textwidth]{0.7pt}{}%
+%\ofoot[\pagemark]{\pagemark}%
+%\cfoot{}%
+%\ifoot{}%
+
+
+\renewcommand*\raggedchapter{\centering}
+\RedeclareSectionCommand[beforeskip=0pt,afterskip=2\baselineskip]{chapter}
+\setkomafont{chapterprefix}{\normalsize\mdseries}
+
+\renewcommand*{\chapterformat}{%
+	\chapappifchapterprefix{\nobreakspace}\thechapter\autodot%
+	\IfUsePrefixLine{%
+		\par\nobreak\vspace{-\parskip}\vspace{-.6\baselineskip}%
+		\rule{0.9\textwidth}{.5pt}%
+	}{\enskip}%
+}
+
+\renewcommand\chapterlineswithprefixformat[3]{%
+%	\MakeUppercase{#2#3}
+	#2#3
+}
+
+
+%\usepackage[hyperref={true}]{acro}
+\usepackage[]{acro} % no hyperref option in TeXLive 2020
+\input{acronym}
+
+\bibliography{literature} % Workaround, because TeXstudio does not know addbibressource yet
+%\addbibresource{literature.bib} % Hint by M.S.
+% see also https://tex.stackexchange.com/questions/21439/is-there-any-advantage-to-using-addbibresource-over-bibliography
+
+%\usepackage{splitidx} 
+%\makeindex % And we want index generation
+%\newindex[Register of Persons]{person} %add person with \sindex[person]{Albert Einstein}
+
+
+\usepackage{hyperref} % hyperref should be in the end (source Uwe Ziegenhagen)
+\hypersetup{%
+	colorlinks=false,   % hyperlinks will be black
+	linkbordercolor=blue,% hyperlink borders will be red
+	pdfborderstyle={/S/U/W 1}, % border style will be underline of width 1pt 
+	pdfpagemode=UseNone,  % PDF-Viewer startet ohne Inhaltsverzeichnis et.al.
+	pdfstartview=FitH, % PDF-Viewer benutzt beim Start bestimmte Seitenbreite
+	%pdfdisplaydoctitle=true,
+	pdfauthor={},%
+	pdftitle={erroics},%
+	bookmarksnumbered=true%
+}
+
+\usepackage[nameinlink, noabbrev, capitalize]{cleveref} % nameinlink = Figure 2 instead fig. 2

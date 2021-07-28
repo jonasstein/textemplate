@@ -1,0 +1,82 @@
+% !TeX program = latexmk
+% !TeX root = thesis.tex
+% !TeX spellcheck = en_US
+% !TeX TXS-program:bibliography = txs:///biber 
+
+\input{luapreamble}
+\input{newcommands}
+
+% abstracton ==> http://www.komascript.de/node/847
+
+%\input{testpreamble} % for debugging
+% \listfiles          % for debugging
+
+\makeatletter
+\title{Investigation of things}
+\author{Max Mustermann}
+\makeatother
+
+\renewcommand\floatpagefraction{.3} %was .5
+
+\begin{document}
+
+\selectlanguage{USenglish}
+\input{titlepage}
+\input{titlepage2}
+
+\tableofcontents
+
+\selectlanguage{ngerman} %switch to german
+\input{zusammenfassung}
+\selectlanguage{USenglish} %switch to english
+\input{abstract}
+
+\chapter{Introduction} 
+\input{introduction}
+
+\chapter{Safety at Work}  
+\label{ch:safety}
+\chaptertoc{Worksafety}
+\input{safety}
+
+
+\chapter{Conclusion} 
+\appendix
+\addpart{Appendix} 
+%\chapter{Software development}
+%\label{ch:software}
+%\input{software}
+
+%\chapter{Samples}
+%\input{samples}
+
+%\chapter{Equipment}
+%\input{equipment}
+
+%\chapter{Source Code}
+%\label{src:helloworld}
+%\input{source}
+
+%\chapter{Supplemental data}
+
+%\input{samplenames}
+%\input{units}
+
+\printacronyms[name=List of Acronyms, heading=chapter]
+\printbibliography%
+
+%\input{glossary}
+
+%\chapter{List of Publications}
+%\input{publications}
+
+
+%\chapter{Curriculum vitae} % not in the printed book
+%\input{cv}
+
+%\input{disclaimer}
+
+%\chapter{Thanks} only in the printed book (?)
+%\input{thanks}
+
+\end{document}

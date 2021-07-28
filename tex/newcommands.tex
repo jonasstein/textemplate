@@ -1,0 +1,30 @@
+% [\newcommand*] defines a [command], that is not, in TeX terms, long.
+
+
+\newcommand{\comment}[1]{} % comment out for debugging with \comment{}
+
+%\newcommand*{\person}[1]{\hbox{#1}\sindex[person]{#1}}
+\newcommand*{\person}[1]{\textsc{{#1}}} % perhaps make some hacks with that later..
+\newcommand*{\device}[1]{\textsc{{#1}}}
+
+
+\newcommand*{\Cgeo}{\mathrm{C_{geo}}} % Geometric Capacity
+
+%\newcommand*{\Cref}{C_{\textrm{ref}}} % in use by cleverref!!!
+\newcommand*{\Qref}{Q_{\text{ref}}}
+
+\providecommand\t{}
+
+% H. Voß Mathematiksatz 2. Aufl. S. 76
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+
+%\usepackage{paralist, dcolumn, ragged2e}
+% H. Voß Tabellen S. 205
+
+%\newcolumntype{v}[1]{>{\RaggedRight\hspace{0pt}}p{#1}}
+
+%http://tex.stackexchange.com/questions/64631/perp-and-parallel-with-equal-height
+\newcommand{\myparallel}{{\mkern3mu\vphantom{\perp}\vrule depth 0pt\mkern2mu\vrule depth 0pt\mkern3mu}}
+
+% \PreviewMacro[{{}}]{\ce} %preview, if mhchem does not work
+
